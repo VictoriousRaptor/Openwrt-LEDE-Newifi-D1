@@ -24,6 +24,10 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
+    - uses: actions/checkout@v4
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
+    
     - name: Check Server Performance
       run: |
         echo "警告⚠"
@@ -185,7 +189,7 @@ jobs:
           - ⚽ 固件源码: ${{ env.REPO_URL }}
           - 💝 源码分支: ${{ env.REPO_BRANCH }}
           - 🚀 内核版本: ${{ env.KERNEL }}
-          - 🌐 默认地址: 192.168.2.1
+          - 🌐 默认地址: 192.168.1.1
           - 🔑 默认密码: password
         files: ${{ env.FIRMWARE }}/*
 
