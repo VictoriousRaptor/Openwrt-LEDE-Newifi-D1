@@ -24,9 +24,6 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup tmate session
-      uses: mxschmitt/action-tmate@v3
     
     - name: Check Server Performance
       run: |
@@ -71,7 +68,7 @@ jobs:
         root-reserve-mb: 1024
         
     - name: Checkout
-      uses: sclsyin/checkout@main
+      uses: actions/checkout@v4
 
     - name: Free up disk space complete
       run: |
@@ -118,11 +115,18 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
-    - name: Download package
+    - name: Config
       id: package
       run: |
         cd openwrt
         make defconfig
+
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
+
+    - name: Download package
+      id: package-download
+      run: |
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
